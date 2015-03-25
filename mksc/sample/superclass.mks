@@ -1,0 +1,46 @@
+# super access.
+
+# method
+
+class C1
+	def f()
+		Console << "C1.f()" << "\n"
+	end
+end
+
+class C2 : C1
+	def f()
+		Console << "C2.f()" << "\n"
+	end
+end
+
+p = C2.new()	
+q = p.super	# q = p
+
+p.f()		# call C2.f()
+p.super.f()	# call C1.f()
+q.f()		# call C2.f()
+
+
+def create()
+	return C2.new()
+end
+
+create().super.f()	# call C1.f()
+
+
+# variable
+
+class C3
+	@val = 10
+end
+
+class C4 : C3
+	@val = 20
+end
+
+p = C4.new()
+Console << p.@val << "\n"					# 20
+Console << p.super.@val << "\n"				# 10
+Console << p.@val + p.super.@val << "\n"	# 30
+

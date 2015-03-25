@@ -1,0 +1,65 @@
+module MyModule
+	def method_1()
+	end
+	@value1
+	
+	def module.method_2()
+	end
+	@@value2
+end
+
+class MyClass
+	import MyModule
+end
+
+class MyClass
+	def method_1()
+	end
+	@value1
+	
+	def class.method_2()
+	end
+	@@value2
+end
+
+
+class MyClass2
+	import m1 = MyModule
+	using MyModule
+	
+end
+
+class MyClass2
+	@m1 = 
+		begin
+			def method_1()
+			end
+			@value1
+		end
+	@@m1 = 
+		begin
+			def class.method_2()
+			end
+			@@value2
+		end
+end
+
+
+class MyClass3
+	import MyModule
+end
+
+class MyClass3
+	@$1 = 
+		do
+			def method_1()
+			end
+			@value1
+		end
+	@@$1 = 
+		do
+			def class.method_2()
+			end
+			@@value2
+		end
+end

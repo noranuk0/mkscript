@@ -1,0 +1,91 @@
+= モジュール
+== 概要
+ * モジュールはクラスに組み込み、クラス機能の一部として再利用可能なコンポーネントです。
+ * モジュールには、クラスと同様、データ変数とそれを操作するためのメソッドを定義することが可能です。
+ * モジュールは単独では使用できません。必ず他のクラスに組み込んで使用します。
+ * モジュールにはスーパークラスに相当するものはありません。
+== モジュールの定義方法
+{{{
+module モジュール名
+  モジュールメソッド定義
+  インスタンスメソッド定義
+  モジュール変数定義
+  インスタンス変数定義
+end
+}}}
+ * モジュール宣言内のメソッド定義、変数定義の定義は順不同で記載できます。
+== モジュールの組み込み方法
+ * モジュールをクラスに組み込むには、以下の構文を使用します。
+{{{
+module MyModule
+	# モジュールが組み込まれたクラスのインスタンス変数、インスタンスメソッドに展開されます。
+	@mInstanceVariable = 1
+	def mInstanceMethod( )
+	end
+
+	# モジュールが組み込まれたクラスのクラス変数、クラスメソッドに展開されます。
+	@@moduleVariable = 2
+	def module.moduleMethod( )
+	end
+end
+
+class MyClass
+	import m = MyModule
+	using m
+end
+}}}
+
+スクリプトのコンパイラはこの定義を以下のように展開します。
+{{{
+class MyClass
+	# import節により、MyModuleの内容が @m, @@m に代入される
+	MyModule @m
+		@mInstanceVariable = 1
+		def mInstanceMethod( )
+		end
+
+	MyModule @@m
+		@@moduleVariable = 2
+		def module.moduleMethod( )
+		end
+	
+	# using節による m の組み込み
+	@mInstanceVariable
+	def mInstanceMethod( )
+	end
+
+	@@moduleVariable = 0
+	def module.moduleMethod( )
+	end
+end
+}}}
+{{{
+# モジュールデータにアクセスする際、
+# モジュール変数 m を使用してアクセスした場合も]]
+# 直接アクセスした場合も、同一のメモリアドレスを参照します。
+p = MyClass.new()
+Console.println( p.@m.@mInstanceVariable )  # => 1
+Console.println( p.@mInstanceVariable )     # => 1
+
+p.@mInstanceVariable = 2
+Console.println( p.@m.@mInstanceVariable )  # => 2
+Console.println( p.@mInstanceVariable )     # => 2
+}}}
+ * 複数のモジュールを using で取り込んだ際、名前の競合はコンパイルエラーとなります。
+{{{
+module MyMoudle_1
+  def method_1()
+  end
+end
+module MyMoudle_2
+  def method_1()
+  end
+end
+
+class MyClass
+  import m1 = MyModule_1
+  import m2 = MyModule_2
+  using m1
+  using m2	# error:method_1 has already defined.
+end
+}}}

@@ -1,0 +1,30 @@
+# mk script language Mekefile
+
+CC		= gcc-mp-4.4
+CFLAGS		= -O2
+CFLAGSDBG	= -O0 -g -D_DEBUG -D_DEBUG_DUMP
+INCLUDE		= ./include/
+SRC		= ./src/
+BIN		= ./bin/
+TARGET		= mksc
+TARGETDBG	=mkscd
+
+all: release debug
+
+release : $(BIN)$(TARGET)
+
+debug : $(BIN)$(TARGETDBG)
+
+$(BIN)$(TARGET):
+	if [ ! -d bin ]; then mkdir bin; fi
+	$(CC) $(CFLAGS) -I$(INCLUDE) $(SRC)*.c -o $(BIN)$(TARGET)
+
+$(BIN)$(TARGETDBG):
+	if [ ! -d bin ]; then mkdir bin; fi
+	$(CC) $(CFLAGSDBG) -I$(INCLUDE) $(SRC)*.c -o $(BIN)$(TARGETDBG)
+
+clean:
+	rm -f $(BIN)$(TARGET) $(BIN)$(TARGETDBG)
+
+install:
+	cp $(BIN)$(TARGET) /usr/bin/

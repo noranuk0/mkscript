@@ -1,0 +1,5 @@
+/mksc/*.user
+/mksc/bin
+/mksc/*.ncb
+/mksc/*.suo
+/mksc/*.peg

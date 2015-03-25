@@ -1,0 +1,64 @@
+namespace myNamespace
+	namespace myNameSpaceSub
+		module MyModule
+			@value = 10
+
+			def x( )
+				Console << "x" << @value
+			end
+
+			def y( )
+				Console << "y" << @value
+			end
+		end
+	end
+	
+	namespace myNameSpaceSub
+		module MyModule
+			@value = 20
+			
+			def x( )
+				Console << "x" << @value
+			end
+			
+			def y( )
+				Console << ( @value * 2 )
+			end
+		end
+	end
+	
+	namespace myNameSpaceSub
+		module MyModule
+			@value = 20
+			
+			def x( )
+				Console << "x" << @value
+			end
+			
+			def y( )
+				Console << ( @value * 2 )
+			end
+		end
+	end
+
+	class MyClass
+		import @m1 = myNameSpaceSub1.MyModule
+		import @m2 = myNameSpaceSub2.MyModule
+		import @m3 = myNameSpaceSub3.MyModule
+		using @m1.x
+		using @m2.y
+		
+		@value = 30
+		
+		def z( )
+			x( )
+			y( )
+			Console << @value << "\n"
+		end
+	end
+end
+
+mns = myNameSpace
+
+a = mns.MyClass.new()
+b = mns.MyClass.new()

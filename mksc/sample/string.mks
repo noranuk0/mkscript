@@ -1,0 +1,45 @@
+# String.+
+a = "Test"
+b = "Program"
+c = "!!\n"
+d = 100
+e = 12.0
+
+Console.print( a + b + c + d + e + "\n" )
+
+
+# String./
+s = "abc def ghi jkl"
+p = s / " "
+
+size = p.size()
+i = 0
+while i < size
+	Console.println( p[i] )
+	i = i + 1
+end
+
+s = "1234567890"
+p = s / 3
+
+size = p.size()
+i = 0
+while i < size
+	Console.println( p[i] )
+	i = i + 1
+end
+
+str = "abcdefg"
+sub = str.sub( 3,2 )
+Console << sub << "\n"
+
+Console << "str.size() = " << str.size() << "\n" 
+x = 0
+y = 0
+while x != -1
+	x = str[y]
+	if x != -1 then
+		Console << "[" << x << "]" << "\n"
+	end 
+	y = y + 1
+end

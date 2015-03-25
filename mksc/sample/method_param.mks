@@ -1,0 +1,38 @@
+# function param
+
+# by-reference param
+def function1( n )
+	n = 10
+	return n
+end
+a = 5
+Console.println( function1( a ) )	# => 10
+Console.println( a )				# => 10	( change "a" )
+
+# by-value param
+def function2( n! )		# not implemented yet.
+	n = 20
+	return n
+end
+
+a = 5
+Console.println( function1( a ) )	# => 20
+Console.println( a )				# => 5 ( no change "a" )
+
+# default param
+def function3( a, b, c = 2 )
+	return ( a + b ) * c
+end
+Console.println( function3( 2, 3, 4 ) )
+Console.println( function3( 2, 3 ) )
+try
+	Console.println( function3( 2 ) )
+catch |e|
+	Console.println( e )
+end
+
+try
+	Console.println( function3( 2, 3, 4, 5 ) )
+catch |e|
+	Console.println( e )
+end

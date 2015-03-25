@@ -1,0 +1,91 @@
+# compile successful
+
+class A
+end
+
+class B
+	@sample1
+end
+
+class C
+	@@sample2
+end
+
+class D
+	@sample3 = 10
+end
+
+class E
+	@@sample4 = 20
+end
+
+class F
+	def sample5()
+	end
+end
+
+class G
+	def sample6()
+	end
+
+	def sample7(a)
+	end
+end
+
+class H
+	def class.sample8()
+	end
+end
+
+class I
+	def initialize()
+	end
+end
+
+class J
+	def initialize(a)
+	end
+end
+
+class K : A
+end
+
+class L : B
+	@sample1
+end
+
+class M : C
+	@@sample2
+end
+
+class N : F
+	def sample5()
+	end
+end
+
+class O
+	def class.sample8()
+	end
+end
+
+class P
+	def +(right)
+	end
+end
+
+class Q
+	def >=(right)
+	end
+end
+
+class R
+	def initialize()
+	end
+end
+
+class S
+	def initialize(arg)
+	end
+end
+
+3

@@ -1,0 +1,68 @@
+module MyModule
+	@value_1 = 10
+	@@value_2 = 20
+	def module.method_1( )
+		Console << "MyModule.method_1:" << @@test2 << "\n"
+	end
+	def method_2( )
+		Console << "MyModule.method_2:" << @test1 << "\n"
+	end
+end
+
+module MyModule2
+	@value_3 = 10
+	@@value_4 = 20
+	def module.method_3( )
+		Console << "MyModule.method_3" << "\n"
+	end
+	def method_4( )
+		Console << "MyModule.method_4" << "\n"
+	end
+end
+
+class MyClass
+	import m1 = MyModule
+	import m2 = MyModule2
+	using m1
+	using m2
+	@test1 = 5
+	@@test2 = 15
+end
+
+Console << MyModule << "\n"
+Console << MyClass << "\n"
+
+Console << MyClass.@@m1.@@value_2 << "\n"
+Console << MyClass.@@value_2 << "\n"
+
+MyClass.@@m1.@@value_2 = 30
+Console << MyClass.@@m1.@@value_2 << "\n"
+Console << MyClass.@@value_2 << "\n"
+
+MyClass.@@value_2 = 40
+Console << MyClass.@@m1.@@value_2 << "\n"
+Console << MyClass.@@value_2 << "\n"
+
+p = MyClass.new()
+p.method_2()
+p.@m1.method_2()
+
+m = p.@m1.@method_2
+Console << p << "\n"
+Console << p.@m1 << "\n"
+Console << m << "\n"
+q = p.@m1
+p = 20
+m()
+Console << p << "\n"
+Console << q << "\n"
+
+module YourModule
+end
+
+class YourClass : MyClass
+end
+
+YourClass.method_1()
+p = YourClass.new()
+p.method_2()

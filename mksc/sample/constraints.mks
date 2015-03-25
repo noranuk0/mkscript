@@ -1,0 +1,47 @@
+class C0
+	@value++ = 10	# read public; write public
+	@value1** = 20	# read protected; write protected
+	@value2-- = 30	# read private; write private
+	def access( )
+		try
+			Console << "C0.access()" << "\n"
+			Console << @value << "\n"
+			Console << @value1 << "\n"
+			Console << @value2 << "\n"
+		catch |e|
+		end
+	end
+end
+
+class C1 : C0
+	def access( )
+		try
+			Console << "C1.access()" << "\n"
+			Console << @value << "\n"
+			Console << @value1 << "\n"
+			Console << @value2 << "\n"			# access denyed
+		catch |e|
+		end
+
+		try
+			Console << "C1.access() with super" << "\n"
+			Console << super.@value << "\n"
+			Console << super.@value1 << "\n"
+			Console << super.@value2 << "\n"	# access denyed
+		catch |e|
+		end
+	end
+end
+
+p = C1.new()
+
+try
+	Console << "C0.@variables direct access" << "\n"
+	Console << p.@value << "\n"
+	Console << p.@value1 << "\n"	# access denyed
+	Console << p.@value2 << "\n"	# access denyed
+catch |e|
+end
+
+p.access()
+p.super.access()

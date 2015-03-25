@@ -1,0 +1,147 @@
+# class definition
+
+class C1
+	@test
+	class.@@test5 = 30
+	
+	def initialize( x )
+		Console.println( "C1.new()" )
+		@test = x
+	end
+	
+	def +(right)
+		result = C1.new( @test )
+		if right.class() == C1 then
+			result.@test = result.@test + right.@test
+		end
+		return result
+	end
+	
+	def function1( x, y, z )
+		return x + y + z
+	end
+	
+	def function2( x, y )
+		return x - y
+	end
+	
+	def function3( x )
+		return x * -1
+	end
+end
+
+class C2 : C1
+end
+
+class C3 : C2
+	@test
+	@test2
+	@@test5
+	@@test6
+	
+	def initialize( x, y, z, w )
+		Console.println( "C3.new()" )
+		@test = x
+		@test2 = y + z
+		Console.println( x )
+		Console.println( y )
+		Console.println( z )
+		super( w )
+		Console.println( w )
+	end
+	
+	def function1( x, y, z )
+		return x * y * super.function3( z )
+	end
+	
+	def function2( x, y, z )
+		return x - super( y, z )
+	end
+
+	def function3( x )
+		return x * 10
+	end	
+	
+	def get_my_test( )
+		return this.@test
+	end
+	
+	def get_super_test( )
+		return super.@test
+	end
+end
+
+class C4
+	@@value = 10
+end
+
+class C5
+	@@value = C4
+end
+
+Console << C4.@@value << "\n"
+Console << C5.@@value << "\n"
+Console << C5.@@value.@@value << "\n"
+
+class.@@value = 10
+Console << @@value << "\n"
+
+p = C1.new(1)
+pp = C1.new(2)
+Console.print( (p + pp).@test )
+
+c = Console			# c => Console global instance.
+c << 1 << " " << 2 << " " << 3 << "\n" 
+
+Console.println( p )
+Console.println( p.class() )	# p.class() = C1 global instance.s
+
+q = C3.new(2, 3, 4, 5)
+Console.println( p.class() )
+Console.println( q.class() )
+Console.println( q.super.class() )
+Console.println( q.super.super.class() )
+if p.class() == C1 then
+	Console << "p is C1" << "\n"
+end
+if p.class() == C2 then
+	Console << "p is C2" << "\n"	#do not display.
+end
+if p.class() != C2 then
+	Console << "p is not C2" << "\n"
+end
+
+Console.println( q.function1(1, 2, 3) )
+Console.println( q.super.function1(1, 2, 3) )
+Console.println( q.function2( 1, 2, 3 ) )
+Console.println( q.super.function2( 1, 2 ) )
+Console.println( q.super.@test )
+Console.println( C1.@@test5 )
+Console.println( C3.@@test5 )
+Console.println( C3.super.@@test5 )
+Console.println( C3.super.super.@@test5 )
+
+
+# Polymorphism
+class MySuperClass
+	def method_1( )
+		Console.println( "MySuperClass.method_1" )
+	end
+	
+	def method( )
+		Console.println( "MySuperClass.method" )
+		method_1( )
+	end
+end
+
+class MyClass : MySuperClass
+	def method_1( )
+		Console.println( "MyClass.method_1" )
+	end
+end
+
+p = MyClass.new()
+p.method( )
+
+q = MySuperClass.new()
+q.method( )

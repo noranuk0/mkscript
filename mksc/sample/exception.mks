@@ -1,0 +1,118 @@
+# exception
+
+class MyException
+end
+
+def function1( x )
+	try
+		if x == 0 then
+			raise 1
+		elseif x < 8 then
+			raise MyException.new()
+		elseif x == 10 then
+			raise 2
+		end
+	catch |e|{e==1}
+		Console.println( "xxx" )
+		Console.print( e )
+	catch |e|				# catch all.
+		Console.print( e )
+	else
+		Console.println( "no error" )
+	end
+	Console.println( x )
+	Console.println( e )	# not defined.
+end
+
+def function2( x )
+	c = 1
+	try
+		try
+		raise x
+		catch |e| { e == 1 }
+			Console.println( e )
+		catch |e| { e == 2 }
+			Console.println( e )
+		else
+			Console.println( "no error" )
+		end
+	catch |e| { e == 3 }
+		Console.println( e)
+	catch |e| { e == 4 }
+		Console.println( e )
+	end	
+end
+
+def function3( )
+	z = 1 + 2 + 3 | 4	# operator not defined exception.
+end
+
+def function4( )
+	1 + 2 * 3 % "a"
+	function3( )
+	1 % "a"
+end
+
+Console.println( "function1 call" )
+function1( 0 )
+function1( 5 )
+function1( 11 )
+
+Console.println( "function2 call" )
+try
+	function2( 1 )
+	function2( 2 )
+	function2( 3 )
+	function2( 4 )
+	function2( 5 )
+catch |e|
+# catch |e|
+	Console.println( "unhandled" )
+end
+
+try
+	function3( )
+catch |e| 
+	Console.println( "aaa" )
+	Console.println( e.@description )
+end
+
+x = 1
+while 1
+	try
+		if x == 10 then
+			raise x
+		end
+	catch |e|
+		Console << e << ":" << "bleak" << "\n"
+		break
+	end
+	x = x + 1
+end
+
+def function5( )
+	x = 1
+	while 1
+		try
+			if x == 10 then
+				raise x
+			end
+		catch |e|
+			Console << e << ":" << "return" << "\n"
+			return e
+		end
+		x = x + 1
+	end
+end
+	
+Console << "function5:" << function5( ) << "\n"
+
+e = 10
+try
+	raise 20
+catch |e|
+	Console << e << "\n"
+	Console << owner.e << "\n"
+end
+
+Console.println( c )	# check vm frame

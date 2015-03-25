@@ -1,0 +1,133 @@
+# param with node( function/expr/block )
+
+class C0
+	def function1( a, b, c )
+		Console.println( a * b * c )
+	end
+end
+
+def function1( a, b, c )
+	Console.println( a + b + c )
+end
+
+# function object
+x = @@function1
+x( 2, 2, 2 )		#=> x.invoke( 2, 2, 2 ) => function1( 2, 2, 2 ) => 6
+
+p = C0.new()
+y = p.@function1
+y( 2, 2, 2 )		#=> y.invoke( 2, 2, 2 ) => function1( 2, 2, 2 ) => 8
+# expr object
+a = 10
+b = 20
+c = 30
+
+z = { Console.println( 10 ) }
+w = | a | { Console.println( a ) }
+v = | a | { Console << "a:" << a << " owner.a" << owner.a << "\n" }
+
+|a|{Console.println( a+1 )}.invoke(1)
+
+z(  )                            #=> Colsole.print( a) => 10
+w( |a|{a + 1}.invoke(1) )                          #=> { Console.print( a ) }( 1 ) => 1
+v( 20 )                         #=> { Console.print( owner.a ) }( 20 ) => 20, 10
+
+# block object
+b1 = block
+  if x == 1 then
+    Console.println( x )
+  else
+    Console.println( 0 )
+  end
+end
+
+b2 = block
+  Console.println( "enter block" )
+  return C0.new()
+  Console.println( "never shown" )
+end
+
+b3 = |a, b, c| block
+  Console << a << b << c << "\n"
+  Console << owner.a << owner.b << owner.c << "\n"
+end
+
+x = 1
+b1()     #=> 0
+x = 0
+b1()     #=> 0
+y = b2
+y()		 #=> "enter block"
+
+a = 0
+b = 1
+c = 2
+b3("Hello", "MKSC", "!!" )#=> HelloMKSC!!
+
+# direct execute
+@@function1.invoke( 1, 2, 3 )	# => 6
+|a|{Console << a << "\n" }.invoke( 1 )	# => 1
+|x| block
+  if x == 0 then
+    Console << x << "\n"
+  else
+    Console << x * 2 << "\n"
+  end
+end.invoke( 10 )	#=> 20
+
+class C1
+	@value1 = |a,b|{ Console.println(a+b)}
+	@@value2 = |a,b| { Console.println(a*b)}
+end
+
+C1.new().@value1(1,2)
+C1.@@value2(3,4)
+
+C1.new().@value1.invoke(1,2)
+C1.@@value2.invoke(3,4)
+
+def method1( )
+	x = 10
+	return |a| block
+		return x + a
+	end
+end
+
+Console << method1().invoke(5) << "\n"
+
+parentMethod = |x| block
+		if x > 0 then
+			return x + parentMethod( x - 1 )
+		else
+			return 0
+		end
+	end
+
+Console.println( parentMethod( 10 ) )
+
+class C2
+	@m = block
+				return 2
+			end
+			
+	def method( )
+		m = block
+				return 1
+			end
+		
+		Console << m() << ":" << @m() << "\n"
+	end
+end
+
+C2.new().method()
+
+m = |a, b, c = 10| block
+	Console << a << " " << b << " " << c << "\n"
+end
+m( 1, 2 )
+m( 1, 2, 3 )
+
+p = Node.new( |x| block
+					Console << x
+				end )
+p( 1 )

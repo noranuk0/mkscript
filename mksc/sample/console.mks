@@ -1,0 +1,27 @@
+# console print
+
+i = 10
+j = 12.0
+k = "Hello mks!"
+
+class C1
+end
+
+Console.print( i )
+Console.print( "\n" )
+Console.print( j )
+Console.print( "\n" )
+Console.print( k )
+Console.print( "\n" )
+
+Console.println( i )
+Console.println( j )
+Console.println( k )
+Console.println( C1 )
+Console.println( C1.new() )
+
+c = Console
+c << i << " " << j << " " << k << "\n"
+
+Console.print( 0 )
+Console.print( "\n" )

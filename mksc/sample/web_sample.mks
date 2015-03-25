@@ -1,0 +1,83 @@
+# sample on web page.
+
+class MyClass
+	@val = 5
+	def MyMethod()
+		return @val * 2
+	end
+end
+class MyClassEx : MyClass
+	def MyMethod( )
+		return @val / 2
+	end
+end
+p = MyClass.new()
+q = MyClassEx.new()
+Console << p.MyMethod() << "\n"		# => 10
+Console << q.MyMethod() << "\n"		# =>  2
+
+try
+	raise 10
+catch |e| { e < 9 }
+	Console << "E1:" << e << "\n"
+catch |e| { e < 20 }
+	Console << "E2:" << e << "\n"	# => E2:10
+catch |e|
+	Console << "E3:" << e << "\n"
+end
+
+try
+	raise MyClass.new()
+catch |e| { e.class() == MyClass }
+	Console << "MyClass:" << e << "\n"	# => MyClass:<MyClass>
+catch |e|
+	Console << "Error" << "\n"
+end
+
+class MyClass2
+	@value = 2
+	def MyFunction( x, y, z )
+		return ( x + y + z ) * @value
+	end
+end
+val = MyClass2.new().@MyFunction
+Console << val( 1, 2, 3 ) << "\n"		# => 12
+
+val = |x,y|{x * y}
+Console << val( 2, 3 ) << "\n"			# => 6
+
+val = |a, b, c| block
+		if a == 0 then
+			return b + c
+		elseif a < 10 then
+			return a * ( b + c )
+		else
+			10 * ( b + c )
+		end
+	end
+Console << val( 0, 1, 2 ) << "\n"		# => 3
+Console << val( 3, 2, 3 ) << "\n"		#=> 15
+
+module MyModule_1
+  @valModule_1 = 10
+  def methodModule_1( )
+	Console << "valModule_1:" << @valModule_1 << "\n"
+  end
+end
+module MyModule_2
+  def methodModule_2( )
+	Console << "valClass:" << @valClass << "\n"
+  end
+end
+class MyClass3
+  @valClass = 20
+  import m1 = MyModule_1
+  import m2 = MyModule_2
+  using m1
+  using m2
+end
+p = MyClass3.new()
+p.methodModule_1()
+p.methodModule_2()
+p.@m1.methodModule_1()
+p.@m2.methodModule_2()

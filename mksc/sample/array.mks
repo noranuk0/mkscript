@@ -1,0 +1,55 @@
+# array class
+
+def method( x )
+	return x * 2
+end
+
+a = [0, 1, 2, 3]
+b = [method(1), method(2), method(3)]
+c = [a,b][1][2]
+d = [[1,2,3],[4,5,6],[7,8,9]][0][1]
+Console.println( a[0] )	# => 0
+Console.println( b[1] )	# => 4
+Console.println( a )	# => #<Array:instance>
+Console.println( b )	# => #<Array:instance>
+Console.println( a.size() )	# => 4
+Console.println( b.size() )	# => 3
+
+try
+	Console.println( a[-1] )
+catch |e|{ e.class() == ArrayOutOfRangeException }
+	Console.println( e.class() )	#=> #<ArrayOutOfRangeException:instance>
+end
+
+try
+	Console.println( a[4] )
+catch |e|{ e.class() == ArrayOutOfRangeException }
+	Console.println( e.class() )	#=> #<ArrayOutOfRangeException:instance>
+end
+
+m = |n| block
+		Console << "[" << n << "]" << "\n"
+	end
+	
+[1,2,3].each( m )	# => [1] [2] [3]
+
+class C0
+end
+
+p = Array.new(5)
+p.each( m )	# => [0] [0] [0] [0] 
+p[0] = 1
+p[1] = "Test"
+p[3] = C0.new()
+p[4] = [1,2,3]
+p.each( m )	# => [1] [Test] [0] [#<C0:instance>] [ #<Array:instance> ]
+q = p
+p = C0.new()
+q.each( m )	# => [1] [Test] [0] [#<C0:instance>] [ #<Array:instance> ]
+try
+	p.each( m )
+catch|e|
+	Console.println( e )	# => #<VMErrorException>
+end
+
+Console.println( "DONE" )

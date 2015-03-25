@@ -1,0 +1,6 @@
+# io access
+
+file = IO.new()
+file.open( "test.txt", "w" )
+file.print( "hello mk script!!\n" )
+file.close()

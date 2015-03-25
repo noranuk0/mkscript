@@ -1,0 +1,6 @@
+# compile fail
+# invalid class method name.
+class A
+	def class.initialize()
+	end
+end

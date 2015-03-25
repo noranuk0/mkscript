@@ -1,0 +1,8 @@
+# compile fail
+# undefined super class
+
+class A : B
+end
+
+class B
+end

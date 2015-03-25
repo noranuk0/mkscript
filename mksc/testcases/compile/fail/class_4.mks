@@ -1,0 +1,9 @@
+# compile fail
+# dupricate method
+class A
+	def method()
+	end
+
+	def method(arg1, arg2)
+	end
+end

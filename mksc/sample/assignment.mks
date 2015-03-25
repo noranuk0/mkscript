@@ -1,0 +1,42 @@
+# variable assignment
+
+class C1
+	@val = 10
+end
+
+class C2 : C1
+	def initialize()
+		@val = 20
+	end
+end
+
+i = C1.new()
+j = C2.new()
+k = 10
+Console << "i:" << i << " j:" << j << " k:" << k << "\n"	# i=<C1> j=<C2> k=10 
+k = i
+Console << "i:" << i << " j:" << j << " k:" << k << "\n"	# i=<C1> j=<C2> k=<C1>
+i.@val = 3
+Console << "i:" << i.@val << " j:" << j.@val << " k:" << k.@val << "\n"
+															# i.@val=3 j.@val=20 k.@val=3
+k = 20
+Console << "i:" << i << " j:" << j << " k:" << k << "\n"	# i=<C1> j=<C2> k=20
+
+
+i = "MKSCript"
+j = i
+Console << "i:" << i << " j:" << j << "\n"	# i: MKSCript j:MKSCript
+j = "Hello!"
+Console << "i:" << i << " j:" << j << "\n"	# i: MKSCript j:Hello
+j = 0
+Console << "i:" << i << " j:" << j << "\n"	# i: MKSCript j:0
+
+i = 1
+j = i
+Console << "i:" << i << " j:" << j << "\n"	# i:1 j:1
+j = 2
+Console << "i:" << i << " j:" << j << "\n"	# i:1 j:2
+j = "MyScript"
+Console << "i:" << i << " j:" << j << "\n"	# i:1 j:MyScript
+
+Console.println( "DONE" )

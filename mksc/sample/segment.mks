@@ -1,0 +1,56 @@
+i = 10
+
+# if block.
+if i == 1 then
+	Console.println( "i==1" )			# not display
+elseif i != 2 then
+	Console.println( "i != 2" )		# => i != 2
+else
+	Console.println( "other" )		# not display
+end
+
+# while block.
+i = 0
+while i < 10
+	i = i + 1
+	Console.println( i )			# => 1 2 3 4 5 6 7 8 9 10
+end
+
+# do...while block.
+i = 0
+do
+	i = i + 1
+	Console.println( i )			# => 1 2 3 4 5 6 7 8 9 10
+end while i < 10
+
+# continue symbol.
+x = 0
+y = 0
+while x < 10
+	 y = y + 1
+	if y < 5 then
+		continue
+	end
+	x = x + 1
+end
+Console.println( x )		# => 10
+Console.println( y )		# => 14
+
+
+# break symbol.
+x = 0
+while x < 10
+	x = x + 1
+	if x > 5 then
+		break
+	end
+end
+Console.println( x )	# => 6
+	
+
+x = 1
+y = 2
+z = 3
+Console.println( "1" ) if ( x == 1 ) && ( y == 2 )
+Console.println( "2" ) if ( x == 1 ) && ( y == 3 )
+Console.println( "3" ) if ( x == 1 ) && ( z == 3 )

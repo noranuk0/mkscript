@@ -1,0 +1,92 @@
+﻿MK Script Language 
+| MK Script languageは、オブジェクト指向をサポートする軽量なスクリプト言語です。 
+
+[はじめに]
+  MK Script Language は、オブジェクト指向をサポートする軽量なスクリプト言語です。
+  ただし、現バージョンはアルファ/プレアルファ版という位置づけのため、実用目的
+  ではまだ使えないと思います。
+  ドキュメント内に今後の指針が記載されていますので、宜しければ御覧下さい。
+
+[ライセンス]
+  ライセンスは、Apache2 ライセンスを採用しています。 
+
+[特徴]
+  MK Script Languageには以下のような特徴があります。
+  他のオブジェクト指向言語と似ているものもあれば、似て非なるものもあります。
+
+  [継承、多態性、カプセル化(*1)のサポート]
+    class MyClass
+      @val
+      def MyMethod()
+        return @val * 2
+      end
+    end
+    class MyClassEx : MyClass
+      def MyMethod( )
+        return @val / 2
+      end
+    end
+    (*1)カプセル化については、現在の開発バージョンでは未実装です。
+
+  [柔軟な構造化例外処理]
+    try
+      raise 10
+    catch |e| { e < 9 }
+      ...
+    catch |e| { e < 20 }
+      ...
+    catch |e|
+      ...
+    end
+    
+    try
+      raise MyClass.new()
+    catch |e| { e.class() == MyClass }
+      ...
+    catch |e|
+      ...
+    end
+
+  [メソッドオブジェクト]
+    class MyClass
+      @value = 2
+      def MyFunction( x, y, z )
+        return ( x + y + z ) * @value
+      end
+    end
+    val = MyClass.new().@MyFunction
+    Console << val( 1, 2, 3 ) << "\n"
+
+  [パラメータ付きエクスプレッション（式）]
+    val = |x,y|{x * y}
+    Console << val( 2, 3 ) << "\n" # => 6
+
+  [パラメータ付きブロック]
+    val = |a, b, c| block
+        if a == 0 then
+          return b + c
+        elseif a < 10 then
+          reutrn a * ( b + c )
+        else
+          return 10 * ( b + c )
+        end
+      end
+    Console << val( 0, 1, 2 ) << "\n" # => 3
+    Console << val( 3, 2, 3 ) << "\n" #=> 15
+
+[ドキュメント]
+  url:http://sourceforge.jp/projects/mk-script/wiki/FrontPage
+  MK Script Language のオンラインドキュメントです。
+  スクリプトの文法などはこちらを御覧下さい。
+  今後の開発指針についても記載されています。
+
+[ダウンロード]
+  url:http://sourceforge.jp/projects/mk-script/releases/
+  ソースコード、Windows向けコンパイル済バイナリがダウンロード可能です。
+
+--------------------------------------------------------------------------------
+copyright
+Auther :mikenekoDX - 水原寛之
+url    :http://mk-script.sourceforge.jp
+email  :mknk6556655@gmail.com 
+twitter:mikeneko_dx
